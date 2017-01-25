@@ -3,6 +3,7 @@
 file::file(string filename, string word)
 {
 	count = 0;
+	this->filename = filename;
 	ifstream fin;
 	fin.open(filename.c_str());
 	if (fin.fail())

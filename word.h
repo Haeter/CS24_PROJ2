@@ -4,6 +4,7 @@
 #include <string>
 #include "list.h"
 #include "itemtype.h"
+using namespace std;
 class word
 {
 	private:

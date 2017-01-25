@@ -22,10 +22,18 @@ int main(int argc, char **argv)
 				files.pushback(current);
 			}
 		}
-		file f = files.get(0);
-		word current(input, new node<file>(f));
-		words.pushback(current);
-		printResults(current);
+		if (files.getLength() > 0)
+		{
+			word current(input, files.getHeadptr());
+			words.pushback(current);
+			printResults(current);
+		}
+		else
+		{
+			cout << "No results found.\n";
+		}
+		cout << "Enter word: ";
+		cin >> input;
 	}
 	return 0;
 }

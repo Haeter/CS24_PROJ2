@@ -1,7 +1,7 @@
 #include "list.h"
 #include "word.h"
 #include "itemtype.h"
-using namespace std;
+//using namespace std;
 
 template<typename T>
 node<T>::node(T &d) : data(d)
@@ -32,6 +32,19 @@ template<typename S>
 list<S>::list()
 {
 	headptr = last = 0;
+	length = 0;
+}
+
+template<class S>
+int list<S>::getLength()
+{
+	return length;
+}
+
+template<class S>
+node<S>* list<S>::getHeadptr()
+{
+	return headptr;
 }
 
 template<typename S>
@@ -44,11 +57,17 @@ void list<S>::pushback(S& data) {
 		last->setNext(n);
 		last = n;
 	}
+	length++;
 }
 
 template<typename S>
 S list<S>::get(int index) {
-	return headptr->getData();
+	node<S> *current = headptr;
+	for (int i = 0; i < index && current; i++)
+	{
+		current = current->getNext();
+	}
+	return current->getData();
 }
 
 template node<file>::node(file&);
@@ -62,9 +81,13 @@ template word node<word>::getData();
 template void node<word>::setNext(node<word>* t);
 
 template list<word>::list();
+template int list<word>::getLength();
+template node<word>* list<word>::getHeadptr();
 template void list<word>::pushback(word&);
 template word list<word>::get(int);
 
 template list<file>::list();
+template int list<file>::getLength();
+template node<file>* list<file>::getHeadptr();
 template void list<file>::pushback(file&);
 template file list<file>::get(int);

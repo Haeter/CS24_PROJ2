@@ -19,8 +19,11 @@ class list
 {
 	private:
 		node<S> *headptr, *last;
+		int length;
 	public:
 		list();
+		int getLength();
+		node<S>* getHeadptr();
 		void pushback(S& data);
 		S get(int index);
 };
