@@ -42,6 +42,26 @@ int list<S>::getLength()
 }
 
 template<class S>
+int list<S>::find(string &data)
+{
+	int count = 0;
+	node<word> *current = headptr;
+	while (current)
+	{
+		if (current->getData().getWord() == data)
+		{
+			return count + 1;
+		}
+		else
+		{
+			current = current->getNext();
+			count++;
+		}
+	}
+	return 0;
+}
+
+template<class S>
 node<S>* list<S>::getHeadptr()
 {
 	return headptr;
@@ -82,6 +102,7 @@ template void node<word>::setNext(node<word>* t);
 
 template list<word>::list();
 template int list<word>::getLength();
+template int list<word>::find(string &data);
 template node<word>* list<word>::getHeadptr();
 template void list<word>::pushback(word&);
 template word list<word>::get(int);

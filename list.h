@@ -1,6 +1,10 @@
 #ifndef list_h
 #define list_h
 
+#include <string>
+using namespace std;
+
+
 template<typename T>
 class node
 {
@@ -23,6 +27,7 @@ class list
 	public:
 		list();
 		int getLength();
+		int find(string &data);
 		node<S>* getHeadptr();
 		void pushback(S& data);
 		S get(int index);
