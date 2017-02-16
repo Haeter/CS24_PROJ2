@@ -60,8 +60,9 @@ int main(int argc, char **argv)
 			if (!words.find(next))
 			{
 				list<file> files;
-				for (int i = 1; i < argc; i++)
+				for (int n = 0; n < filenames.size(); n++)
 				{
+					absoluteFile =(string(argv[1])+slash+filenames[n]).c_str();
 					file current(absoluteFile, next);
 					if (current.getCount() > 0)
 					{
