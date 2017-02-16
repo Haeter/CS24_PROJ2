@@ -1,4 +1,5 @@
 #include <vector>
+#include <unordered_map>
 #include <dirent.h>
 #include "wordsearch.h"
 using namespace std;
@@ -47,6 +48,9 @@ int main(int argc, char **argv)
 	list<word> words;
 	string next;
 	string slash = "/";
+	unordered_map<string, int> seen;
+	int wordsRecorded = 0;
+
 	for (int i = 0; i < filenames.size(); i++)
 	{
 		string absoluteFile =(string(argv[1])+slash+filenames[i]);
@@ -60,13 +64,29 @@ int main(int argc, char **argv)
 		//cout << filenames[i] << endl;
 		while (fin >> next)
 		{
-			word* currentWord = NULL;
+			/*word* currentWord = NULL;
 			for (words.startIterating(); words.hasNext(); words.iterate()) {
 				currentWord = words.getCurrentPointer();
 				if (currentWord->getWord() == next) {
 					break;
 				}
+			}*/
+
+			///////////////////////////
+			unordered_map<string, int>::iterator it = seen.find(next);
+			word* currentWord;
+
+			if (it == seen.end()) {
+				currentWord = NULL;
 			}
+			else {
+				int i = 0, max = wordsRecorded - it->second - 1;
+				for (words.startIterating(); i < max; words.iterate()) {
+					i++;
+				}
+				currentWord = words.getCurrentPointer();
+			}
+			///////////////////////////
 			
 			if (currentWord && currentWord->getWord() == next)
 			{
@@ -96,6 +116,8 @@ int main(int argc, char **argv)
 				newWord.getFiles()->pushfront(newFile);
 
 				words.pushfront(newWord);
+				seen[next] = wordsRecorded;
+				wordsRecorded++;
 			}
 		}
 		fin.close();
