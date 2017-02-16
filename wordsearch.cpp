@@ -15,9 +15,11 @@ int getdir (string dir, vector<string> &files)
 		cout << "Error opening " << dir << endl;
 		return 1;
 	}
-
 	while ((dirp = readdir(dp)) != NULL) {
-		files.push_back(string(dirp->d_name));
+		if (string(dirp->d_name)[0] != '.')
+		{
+			files.push_back(string(dirp->d_name));
+		}
 	}
 	closedir(dp);
 	return 0;
@@ -32,7 +34,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	string dir; //
+	string dir;
 	vector<string> filenames;
 
 	dir = string(argv[1]);
@@ -48,6 +50,7 @@ int main(int argc, char **argv)
 	for (int i = 0; i < filenames.size(); i++)
 	{
 		string absoluteFile =(string(argv[1])+slash+filenames[i]);
+		cout << absoluteFile << endl;
 		fin.open(absoluteFile.c_str());
 		if (fin.fail())
 		{
@@ -58,15 +61,17 @@ int main(int argc, char **argv)
 		while (fin >> next)
 		{
 			cout << next << endl;
-			if (words.find(next))
+			int index(0);
+			if (index = words.find(next))
 			{
-				word currentWord = words.get(words.find(next));
+				word currentWord = words.get(index);
 				node<file> *currentFile = currentWord.getPtr();
 				node<file> *previousFile = currentFile;
 				while (currentFile)
 				{
 					if (currentFile->getData().getFilename() == filenames[i])
 					{
+						cout << currentFile->getData().getFilename() << endl;
 						currentFile->getData().setCount(currentFile->getData().getCount() + 1);
 						break;
 					}
