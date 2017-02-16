@@ -52,15 +52,17 @@ map<K, V>::map()
 
 template<typename K, typename V>
 void map<K, V>::set(K key, V value) {
+	// access the place where the key hashs to
 	int hashCode = key.getHashCode() % MAX_SIZE;
 	valueNode<K, V>* ptr = keys[hashCode];
 
-	if (!ptr) {
-		keys[hashCode] = new valueNode<K, V>(key, value, NULL);
-	}
-	else {
+	// does key exist?
+	if (ptr) {
+		// loop through possible keys
 		valueNode<K, V>* lagging = NULL;
+
 		while (ptr) {
+			// if found set value and exit
 			if (ptr->key == key) {
 				ptr->value = value;
 				return;
@@ -71,23 +73,34 @@ void map<K, V>::set(K key, V value) {
 		}
 
 		// ptr->key never equaled key
+		// add value to end of chain
 		lagging->next = new valueNode<K, V>(key, value, NULL);
+	}
+	else {
+		// insert key/value pair
+		keys[hashCode] = new valueNode<K, V>(key, value, NULL);
 	}
 }
 
 template<typename K, typename V>
 V map<K, V>::get(K key) {
+	// access place where key could be
 	int hashCode = key.getHashCode() % MAX_SIZE;
 	valueNode<K, V>* ptr = keys[hashCode];
+
+	// key not found
 	if (!ptr) return NULL;
 
+	// begin searching for key
 	while (ptr) {
 		if (ptr->key == key) {
+			// key found
 			return ptr->value;
 		}
 		ptr = ptr->next;
 	}
 
+	// key not found
 	return NULL;
 }
 
@@ -109,6 +122,7 @@ int list<S>::length()
 
 template<typename S>
 void list<S>::pushfront(S& data) {
+	// insert new node at head, reassign head to new node
 	headptr = new node<S>(data, headptr);
 	hashMap.set(data, headptr);
 	len++;
