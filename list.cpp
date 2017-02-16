@@ -43,7 +43,7 @@ valueNode<K, V>::valueNode(K& initKey, V& initValue, valueNode *initNext) : key(
 
 template<typename K, typename V>
 void map<K, V>::set(K key, V value) {
-	int hashCode = key.getHashCode() % 1000;
+	int hashCode = key.getHashCode() % MAX_SIZE;
 	valueNode<K, V>* ptr = keys[hashCode];
 
 	if (!ptr) {
@@ -68,7 +68,7 @@ void map<K, V>::set(K key, V value) {
 
 template<typename K, typename V>
 V map<K, V>::get(K key) {
-	int hashCode = key.getHashCode() % 1000;
+	int hashCode = key.getHashCode() % MAX_SIZE;
 	valueNode<K, V>* ptr = keys[hashCode];
 
 	if (!ptr) return NULL;
