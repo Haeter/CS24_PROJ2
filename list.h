@@ -37,6 +37,7 @@ class map
 		static const int MAX_SIZE = 1000;
 		valueNode<K, V>* keys[MAX_SIZE];
 	public:
+		map();
 		void set(K k, V v);
 		V get(K k);
 };

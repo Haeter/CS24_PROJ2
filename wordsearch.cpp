@@ -47,7 +47,6 @@ int main(int argc, char **argv)
 	list<word> words;
 	string next;
 	string slash = "/";
-	//unordered_map<string, int> seen;
 	int wordsRecorded = 0;
 
 	for (int i = 0; i < filenames.size(); i++)
@@ -73,6 +72,7 @@ int main(int argc, char **argv)
 
 			///////////////////////////
 			//unordered_map<string, int>::iterator it = seen.find(next);
+			cout << next << endl;
 			word newWord(next);
 			word* currentWord = words.getDataPointer(newWord);
 			if (currentWord)
