@@ -24,5 +24,13 @@ bool word::operator==(const word& other) {
 }
 
 int word::getHashCode() {
-	return 1;
+	int code = 0;
+	// only hash the first four characters
+	for (int i = 0; i < 4 && i < data.length(); i++) {
+		int twentysix = 26;
+		for (int n = 0; n < i; n++) { twentysix *= 26; }
+
+		code += twentysix * (data[i] % 26);
+	}
+	return code;
 }
