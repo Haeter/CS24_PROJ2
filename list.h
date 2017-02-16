@@ -34,7 +34,7 @@ template<typename K, typename V>
 class map
 {
 	private:
-		static const int MAX_SIZE = 1000;
+		static const int MAX_SIZE = 5000;
 		valueNode<K, V>* keys[MAX_SIZE];
 	public:
 		map();

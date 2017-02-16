@@ -1,5 +1,6 @@
 #include <vector>
 #include <dirent.h>
+#include <cctype>
 #include "wordsearch.h"
 using namespace std;
 
@@ -72,6 +73,17 @@ int main(int argc, char **argv)
 
 			///////////////////////////
 			//unordered_map<string, int>::iterator it = seen.find(next);
+			for (int i = 0; i < next.length(); i++)
+			{
+				if(ispunct(next[i]))
+				{
+					next.erase(i, 1);
+				}
+				else
+				{
+					next[i] = tolower(next[i]);
+				}
+			}
 			cout << next << endl;
 			word newWord(next);
 			word* currentWord = words.getDataPointer(newWord);
@@ -169,16 +181,20 @@ int main(int argc, char **argv)
 	cin >> input;
 	while (input != "exit")
 	{
-		word search;
+		word search(input);
+		word* currentWord = words.getDataPointer(search);
+		if (currentWord)
+		{
+			/*
+			list<file>* filesWithWord = currentWord->getFiles();
 		for (words.startIterating(); words.hasNext(); words.iterate()) {
 			search = words.getCurrent();
 			if (search.getWord() == input) {
 				break;
 			}
 		}
-		if (search.getWord() == input)
-		{
-			printResults(search);
+		*/
+			printResults(*currentWord);
 		}
 		else
 		{
