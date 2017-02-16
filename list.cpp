@@ -36,6 +36,50 @@ void node<T>::setNext(node<T>* n)
 	this->next = n;
 }
 
+template<typename K, typename V>
+void map<K, V>::set(K key, V value) {
+	int hashCode = key->getHashCode() % 1000;
+	valueNode<K, V>* ptr = keys[hashCode];
+
+	if (!ptr) {
+		keys[hashCode] = new valueNode<K, V>(key, value, NULL);
+	}
+	else {
+		valueNode<K, V>* lagging = NULL;
+		while (ptr) {
+			if (ptr->key == key) {
+				ptr->value = value;
+				return;
+			}
+
+			lagging = ptr;
+			ptr = ptr->next;
+		}
+
+		// ptr->key never equaled key
+		lagging->next = new valueNode<K, V>(key, value, NULL);
+	}
+}
+
+template<typename K, typename V>
+V map<K, V>::get(K key) {
+	int hashCode = key->getHashCode() % 1000;
+	valueNode<K, V>* ptr = keys[hashCode];
+
+	if (!ptr) return NULL;
+
+	while (ptr) {
+		if (ptr->key == key) {
+			return ptr->value;
+		}
+		ptr = ptr->next;
+	}
+
+	return NULL;
+}
+
+
+
 template<typename S>
 list<S>::list()
 {

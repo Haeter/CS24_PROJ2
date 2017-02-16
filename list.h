@@ -19,6 +19,28 @@ class node
 		void setNext(node<T>* n);
 };
 
+
+
+template<typename K, typename V>
+struct valueNode {
+	K key;
+	V value;
+	valueNode* next;
+};
+
+
+template<typename K, typename V>
+class map
+{
+	private:
+//		const int MAX_SIZE;
+		valueNode<V, K>* keys[1000];
+	public:
+		void set(K k, V v);
+		V get(K k);
+};
+
+
 template<typename S>
 class list
 {

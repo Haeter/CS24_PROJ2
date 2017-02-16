@@ -15,6 +15,9 @@ class file{
 		string getFilename();
 		int getCount();
 		void setCount(int newCount);
+
+		bool operator==(const file&f);
+		int getHashCode();
 };
 
 #endif // itemtype_h

@@ -20,3 +20,11 @@ void file::setCount(int newCount)
 {
 	count = newCount;
 }
+
+bool file::operator==(const file& f) {
+	return filename == f.filename;
+}
+
+int getHashCode() {
+	return 1;
+}

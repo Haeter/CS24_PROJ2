@@ -18,3 +18,11 @@ string word::getWord()
 list<file>* word::getFiles() {
 	return &files; 
 }
+
+bool word::operator==(const word& other) {
+	return data == other.data;
+}
+
+int word::getHashCode() {
+	return 1;
+}

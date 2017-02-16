@@ -15,6 +15,9 @@ class word
 		word(string dat);
 		string getWord();
 		list<file>* getFiles();
+
+		bool operator==(const word& other);
+		int getHashCode();
 };
 
 #endif // word_h
