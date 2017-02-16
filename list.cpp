@@ -42,6 +42,15 @@ valueNode<K, V>::valueNode(K& initKey, V& initValue, valueNode *initNext) : key(
 }
 
 template<typename K, typename V>
+map<K, V>::map()
+{
+	for (int i = 0; i < MAX_SIZE; i++)
+	{
+		keys[i] = NULL;
+	}
+}
+
+template<typename K, typename V>
 void map<K, V>::set(K key, V value) {
 	// access the place where the key hashs to
 	int hashCode = key.getHashCode() % MAX_SIZE;
