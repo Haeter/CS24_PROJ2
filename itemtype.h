@@ -11,7 +11,7 @@ class file{
 		string filename;
 		int count;
 	public:
-		file(string filename, int initCount = 1);
+		file(string filename, int initCount);
 		string getFilename();
 		int getCount();
 		void setCount(int newCount);

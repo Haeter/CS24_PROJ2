@@ -12,8 +12,9 @@ class node
 		T data;
 		node<T> *next;
 	public:
-		node(T& data);
+		node(T& data, node<T>* n=NULL);
 		T getData();
+		T* getDataPointer();
 		node<T>* getNext();
 		void setNext(node<T>* n);
 };
@@ -22,15 +23,21 @@ template<typename S>
 class list
 {
 	private:
-		node<S> *headptr, *last;
-		int length;
+		node<S> *headptr, *iter;
+		int len;
 	public:
 		list();
-		int getLength();
-		int find(string &data);
-		node<S>* getHeadptr();
-		void pushback(S& data);
+		int length();
+		void pushfront(S& data);
 		S get(int index);
+
+		void startIterating();
+		S getCurrent();
+		S* getCurrentPointer();
+		void iterate();
+		bool hasNext();
 };
+
+#include "list.cpp"
 
 #endif // list_h

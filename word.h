@@ -9,12 +9,12 @@ class word
 {
 	private:
 		string data;
-		node<file> *headptr;
+		list<file> files;
 	public:
 		word();
-		word(string dat, node<file>* head);
+		word(string dat);
 		string getWord();
-		node<file>* getPtr();
+		list<file>* getFiles();
 };
 
 #endif // word_h

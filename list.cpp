@@ -1,12 +1,14 @@
+#ifndef LIST_CPP
+#define LIST_CPP
+
 #include "list.h"
 #include "word.h"
 #include "itemtype.h"
 //using namespace std;
 
 template<typename T>
-node<T>::node(T &d) : data(d)
+node<T>::node(T &d, node<T>* n) : data(d), next(n)
 {
-	next = 0;
 }
 
 
@@ -14,6 +16,12 @@ template<typename T>
 T node<T>::getData()
 {
 	return this->data;
+}
+
+template<typename T>
+T* node<T>::getDataPointer()
+{
+	return &(this->data);
 }
 
 template<typename T>
@@ -31,53 +39,20 @@ void node<T>::setNext(node<T>* n)
 template<typename S>
 list<S>::list()
 {
-	headptr = last = 0;
-	length = 0;
+	headptr = NULL;
+	len = 0;
 }
 
 template<class S>
-int list<S>::getLength()
+int list<S>::length()
 {
-	return length;
-}
-
-template<class S>
-int list<S>::find(string &data)
-{
-	int count = 0;
-	node<word> *current = headptr;
-	while (current)
-	{
-		if (current->getData().getWord() == data)
-		{
-			return count + 1;
-		}
-		else
-		{
-			current = current->getNext();
-			count++;
-		}
-	}
-	return 0;
-}
-
-template<class S>
-node<S>* list<S>::getHeadptr()
-{
-	return headptr;
+	return len;
 }
 
 template<typename S>
-void list<S>::pushback(S& data) {
-	node<S> *n = new node<S>(data);
-	if (!headptr) {
-		headptr = last = n;
-	}
-	else {
-		last->setNext(n);
-		last = n;
-	}
-	length++;
+void list<S>::pushfront(S& data) {
+	headptr = new node<S>(data, headptr);
+	len++;
 }
 
 template<typename S>
@@ -90,25 +65,52 @@ S list<S>::get(int index) {
 	return current->getData();
 }
 
-template node<file>::node(file&);
+template<typename S>
+void list<S>::startIterating() {
+	iter = headptr;
+}
+
+template<typename S>
+void list<S>::iterate() {
+	iter = iter->getNext();
+}
+
+template<typename S>
+S list<S>::getCurrent() {
+	return iter->getData();
+}
+
+template<typename S>
+S* list<S>::getCurrentPointer() {
+	return iter->getDataPointer();
+}
+template<typename S>
+bool list<S>::hasNext() {
+	return iter != NULL;
+}
+
+
+
+/*
+template node<file>::node(file&, node<file>*);
 template node<file>* node<file>::getNext();
 template file node<file>::getData();
 template void node<file>::setNext(node<file>* t);
 
-template node<word>::node(word&);
+template node<word>::node(word&, node<word>*);
 template node<word>* node<word>::getNext();
 template word node<word>::getData();
 template void node<word>::setNext(node<word>* t);
 
 template list<word>::list();
-template int list<word>::getLength();
+template int list<word>::length();
 template int list<word>::find(string &data);
-template node<word>* list<word>::getHeadptr();
-template void list<word>::pushback(word&);
+template void list<word>::pushfront(word&);
 template word list<word>::get(int);
 
 template list<file>::list();
-template int list<file>::getLength();
-template node<file>* list<file>::getHeadptr();
-template void list<file>::pushback(file&);
-template file list<file>::get(int);
+template int list<file>::length();
+template void list<file>::pushfront(file&);
+template file list<file>::get(int); */
+
+#endif

@@ -3,13 +3,11 @@
 word::word()
 {
 	data = "";
-	headptr = 0;
 }
 
-word::word(string dat, node<file> *head)
+word::word(string dat)
 {
 	data = dat;
-	headptr = head;
 }
 
 string word::getWord()
@@ -17,7 +15,6 @@ string word::getWord()
 	return data;
 }
 
-node<file>* word::getPtr()
-{
-	return headptr;
+list<file>* word::getFiles() {
+	return &files; 
 }

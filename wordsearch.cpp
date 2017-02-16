@@ -60,37 +60,42 @@ int main(int argc, char **argv)
 		//cout << filenames[i] << endl;
 		while (fin >> next)
 		{
-			cout << next << endl;
-			int index(0);
-			if (index = words.find(next))
+			word* currentWord = NULL;
+			for (words.startIterating(); words.hasNext(); words.iterate()) {
+				currentWord = words.getCurrentPointer();
+				if (currentWord->getWord() == next) {
+					break;
+				}
+			}
+			
+			if (currentWord && currentWord->getWord() == next)
 			{
-				word currentWord = words.get(index);
-				node<file> *currentFile = currentWord.getPtr();
-				node<file> *previousFile = currentFile;
-				while (currentFile)
+				list<file>* filesWithWord = currentWord->getFiles();
+				bool matched = false;
+				file* fileWithWord;
+				for (filesWithWord->startIterating(); filesWithWord->hasNext(); filesWithWord->iterate())
 				{
-					if (currentFile->getData().getFilename() == filenames[i])
+					fileWithWord = filesWithWord->getCurrentPointer();
+					if (fileWithWord->getFilename() == filenames[i])
 					{
-						cout << currentFile->getData().getFilename() << endl;
-						currentFile->getData().setCount(currentFile->getData().getCount() + 1);
+						matched = true;
+						fileWithWord->setCount(fileWithWord->getCount() + 1);
 						break;
 					}
-					previousFile = currentFile;
-					currentFile = currentFile->getNext();
 				}
-				if (!currentFile)
+				if (!matched)
 				{
 					file newFile(filenames[i], 1);
-					node<file> *filePtr = new node<file>(newFile);
-					previousFile->setNext(filePtr);
+					currentWord->getFiles()->pushfront(newFile);
 				}
 			}
 			else
 			{
 				file newFile(filenames[i], 1);
-				node<file> *filePtr = new node<file>(newFile);
-				word currentWord(next, filePtr);
-				words.pushback(currentWord);
+				word newWord(next);
+				newWord.getFiles()->pushfront(newFile);
+
+				words.pushfront(newWord);
 			}
 		}
 		fin.close();
@@ -100,10 +105,16 @@ int main(int argc, char **argv)
 	cin >> input;
 	while (input != "exit")
 	{
-		int index = words.find(input);
-		if (index)
+		word search;
+		for (words.startIterating(); words.hasNext(); words.iterate()) {
+			search = words.getCurrent();
+			if (search.getWord() == input) {
+				break;
+			}
+		}
+		if (search.getWord() == input)
 		{
-			printResults(words.get(index - 1));
+			printResults(search);
 		}
 		else
 		{
@@ -117,10 +128,9 @@ int main(int argc, char **argv)
 
 void printResults(word current)
 {
-	node<file> *p = current.getPtr();
-	while (p) {
-		file f = p->getData();
+	list<file> files = *(current.getFiles());
+	for (int i = 0; i < files.length(); i++) {
+		file f = files.get(i);
 		cout << f.getFilename() << " " << f.getCount() << endl;
-		p = p->getNext();
 	}
 }
