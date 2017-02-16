@@ -25,6 +25,6 @@ bool file::operator==(const file& f) {
 	return filename == f.filename;
 }
 
-int getHashCode() {
+int file::getHashCode() {
 	return 1;
 }

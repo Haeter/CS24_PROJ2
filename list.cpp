@@ -37,8 +37,13 @@ void node<T>::setNext(node<T>* n)
 }
 
 template<typename K, typename V>
+valueNode<K, V>::valueNode(K& initKey, V& initValue, valueNode *initNext) : key(initKey), value(initValue), next(initNext)
+{
+}
+
+template<typename K, typename V>
 void map<K, V>::set(K key, V value) {
-	int hashCode = key->getHashCode() % 1000;
+	int hashCode = key.getHashCode() % 1000;
 	valueNode<K, V>* ptr = keys[hashCode];
 
 	if (!ptr) {
@@ -63,7 +68,7 @@ void map<K, V>::set(K key, V value) {
 
 template<typename K, typename V>
 V map<K, V>::get(K key) {
-	int hashCode = key->getHashCode() % 1000;
+	int hashCode = key.getHashCode() % 1000;
 	valueNode<K, V>* ptr = keys[hashCode];
 
 	if (!ptr) return NULL;
@@ -84,6 +89,7 @@ template<typename S>
 list<S>::list()
 {
 	headptr = NULL;
+	iter = NULL;
 	len = 0;
 }
 
@@ -96,6 +102,7 @@ int list<S>::length()
 template<typename S>
 void list<S>::pushfront(S& data) {
 	headptr = new node<S>(data, headptr);
+	hashMap.set(data, headptr);
 	len++;
 }
 
@@ -107,6 +114,18 @@ S list<S>::get(int index) {
 		current = current->getNext();
 	}
 	return current->getData();
+}
+
+template<typename S>
+S* list<S>::getDataPointer(S &data)
+{
+	node<S> *result = hashMap.get(data);
+	if (result)
+	{
+		S* dataPtr = result->getDataPointer();
+		return dataPtr;
+	}
+	return NULL;
 }
 
 template<typename S>

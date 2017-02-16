@@ -26,6 +26,7 @@ struct valueNode {
 	K key;
 	V value;
 	valueNode* next;
+	valueNode(K& initKey, V& initValue, valueNode<K, V> *initNext);
 };
 
 
@@ -34,7 +35,7 @@ class map
 {
 	private:
 //		const int MAX_SIZE;
-		valueNode<V, K>* keys[1000];
+		valueNode<K, V>* keys[1000];
 	public:
 		void set(K k, V v);
 		V get(K k);
@@ -46,13 +47,14 @@ class list
 {
 	private:
 		node<S> *headptr, *iter;
+		map<S, node<S>* > hashMap;
 		int len;
 	public:
 		list();
 		int length();
 		void pushfront(S& data);
 		S get(int index);
-
+		S* getDataPointer(S& data);
 		void startIterating();
 		S getCurrent();
 		S* getCurrentPointer();

@@ -1,5 +1,4 @@
 #include <vector>
-#include <unordered_map>
 #include <dirent.h>
 #include "wordsearch.h"
 using namespace std;
@@ -48,7 +47,7 @@ int main(int argc, char **argv)
 	list<word> words;
 	string next;
 	string slash = "/";
-	unordered_map<string, int> seen;
+	//unordered_map<string, int> seen;
 	int wordsRecorded = 0;
 
 	for (int i = 0; i < filenames.size(); i++)
@@ -73,9 +72,50 @@ int main(int argc, char **argv)
 			}*/
 
 			///////////////////////////
-			unordered_map<string, int>::iterator it = seen.find(next);
-			word* currentWord;
+			//unordered_map<string, int>::iterator it = seen.find(next);
+			word newWord(next);
+			word* currentWord = words.getDataPointer(newWord);
+			if (currentWord)
+			{
+				list<file>* filesWithWord = currentWord->getFiles();
+				//bool matched = false;
+				file newFile(filenames[i], 1);
+				file* fileWithWord = filesWithWord->getDataPointer(newFile);
+				if (fileWithWord)
+				{
+					fileWithWord->setCount(fileWithWord->getCount() + 1);
+				}
+				else
+				{
+					currentWord->getFiles()->pushfront(newFile);
+				}
+				/*
+				for (filesWithWord->startIterating(); filesWithWord->hasNext(); filesWithWord->iterate())
+				{
+					fileWithWord = filesWithWord->getCurrentPointer();
+					if (fileWithWord->getFilename() == filenames[i])
+					{
+						matched = true;
+						fileWithWord->setCount(fileWithWord->getCount() + 1);
+						break;
+					}
+				}
+				if (!matched)
+				{
+					file newFile(filenames[i], 1);
+					currentWord->getFiles()->pushfront(newFile);
+				}
+				*/
+			}
+			else
+			{
+				file newFile(filenames[i], 1);
+				newWord.getFiles()->pushfront(newFile);
+				words.pushfront(newWord);
+				wordsRecorded++;
+			}
 
+			/*
 			if (it == seen.end()) {
 				currentWord = NULL;
 			}
@@ -86,8 +126,9 @@ int main(int argc, char **argv)
 				}
 				currentWord = words.getCurrentPointer();
 			}
+			*/
 			///////////////////////////
-			
+			/*			
 			if (currentWord && currentWord->getWord() == next)
 			{
 				list<file>* filesWithWord = currentWord->getFiles();
@@ -119,6 +160,7 @@ int main(int argc, char **argv)
 				seen[next] = wordsRecorded;
 				wordsRecorded++;
 			}
+			*/
 		}
 		fin.close();
 	}
