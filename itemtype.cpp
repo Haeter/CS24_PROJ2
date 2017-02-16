@@ -1,25 +1,9 @@
 #include "itemtype.h"
 
-file::file(string filename, string word)
+file::file(string filename, int initCount)
 {
-	count = 0;
+	count = initCount;
 	this->filename = filename;
-	ifstream fin;
-	fin.open(filename.c_str());
-	if (fin.fail())
-	{
-		cerr << "File " << filename << " couldn't be opened.";
-		exit(1);
-	}
-	string next;
-	while (fin >> next)
-	{
-		if (next == word)
-		{
-			count++;
-		}
-	}
-	fin.close();
 }
 
 string file::getFilename()
@@ -30,4 +14,9 @@ string file::getFilename()
 int file::getCount()
 {
 	return count;
+}
+
+void file::setCount(int newCount)
+{
+	count = newCount;
 }

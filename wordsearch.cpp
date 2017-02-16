@@ -20,22 +20,35 @@ int main(int argc, char **argv)
 		}
 		while (fin >> next)
 		{
-			if (!words.find(next))
+			cout << next << endl;
+			if (words.find(next))
 			{
-				list<file> files;
-				for (int i = 1; i < argc; i++)
+				word currentWord = words.get(words.find(next));
+				node<file> *currentFile = currentWord.getPtr();
+				node<file> *previousFile = NULL;
+				while (currentFile)
 				{
-					file current(argv[i], next);
-					if (current.getCount() > 0)
+					if (strcmp(currentFile->getData().getFilename().c_str(), argv[i]) == 0)
 					{
-						files.pushback(current);
+						currentFile->getData().setCount(currentFile->getData().getCount() + 1);
+						break;
 					}
+					previousFile = currentFile;
+					currentFile = currentFile->getNext();
 				}
-				if (files.getLength() > 0)
+				if (!currentFile)
 				{
-					word current(next, files.getHeadptr());
-					words.pushback(current);
+					file newFile(argv[i], 1);
+					node<file> *filePtr = new node<file>(newFile);
+					previousFile->setNext(filePtr);
 				}
+			}
+			else
+			{
+				file newFile(argv[i], 1);
+				node<file> *filePtr = new node<file>(newFile);
+				word currentWord(next, filePtr);
+				words.pushback(currentWord);
 			}
 		}
 		fin.close();

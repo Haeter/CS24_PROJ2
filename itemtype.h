@@ -11,9 +11,10 @@ class file{
 		string filename;
 		int count;
 	public:
-		file(string filename, string word);
+		file(string filename, int initCount = 1);
 		string getFilename();
 		int getCount();
+		void setCount(int newCount);
 };
 
 #endif // itemtype_h
