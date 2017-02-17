@@ -4,8 +4,9 @@
 #include "list.h"
 #include "word.h"
 #include "itemtype.h"
-//using namespace std;
 
+
+// Passes initialization data by reference
 template<typename T>
 node<T>::node(T &d, node<T>* n) : data(d), next(n)
 {
@@ -18,6 +19,7 @@ T node<T>::getData()
 	return this->data;
 }
 
+// returns the address of the data
 template<typename T>
 T* node<T>::getDataPointer()
 {
@@ -41,6 +43,7 @@ valueNode<K, V>::valueNode(K& initKey, V& initValue, valueNode *initNext) : key(
 {
 }
 
+// map constructor initializes the array to null
 template<typename K, typename V>
 map<K, V>::map()
 {
@@ -106,6 +109,7 @@ V map<K, V>::get(K key) {
 
 
 
+// initialize vars to NULL/0
 template<typename S>
 list<S>::list()
 {
@@ -120,6 +124,7 @@ int list<S>::length()
 	return len;
 }
 
+// adds data to linked list and to hash map
 template<typename S>
 void list<S>::pushfront(S& data) {
 	// insert new node at head, reassign head to new node
@@ -138,6 +143,7 @@ S list<S>::get(int index) {
 	return current->getData();
 }
 
+// gets the address of node with data equal to argument given
 template<typename S>
 S* list<S>::getDataPointer(S &data)
 {
@@ -150,6 +156,8 @@ S* list<S>::getDataPointer(S &data)
 	return NULL;
 }
 
+
+// Methods below allow traversal of the linked list
 template<typename S>
 void list<S>::startIterating() {
 	iter = headptr;
@@ -174,28 +182,5 @@ bool list<S>::hasNext() {
 	return iter != NULL;
 }
 
-
-
-/*
-template node<file>::node(file&, node<file>*);
-template node<file>* node<file>::getNext();
-template file node<file>::getData();
-template void node<file>::setNext(node<file>* t);
-
-template node<word>::node(word&, node<word>*);
-template node<word>* node<word>::getNext();
-template word node<word>::getData();
-template void node<word>::setNext(node<word>* t);
-
-template list<word>::list();
-template int list<word>::length();
-template int list<word>::find(string &data);
-template void list<word>::pushfront(word&);
-template word list<word>::get(int);
-
-template list<file>::list();
-template int list<file>::length();
-template void list<file>::pushfront(file&);
-template file list<file>::get(int); */
 
 #endif
