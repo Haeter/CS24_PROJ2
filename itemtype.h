@@ -1,3 +1,5 @@
+// Ryan Wiener, Porter Haet, 2/16/17
+
 #ifndef itemtype_h
 #define itemtype_h
 

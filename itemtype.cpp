@@ -1,3 +1,5 @@
+// Ryan Wiener, Porter Haet, 2/16/17
+
 #include "itemtype.h"
 
 file::file(string filename, int initCount)

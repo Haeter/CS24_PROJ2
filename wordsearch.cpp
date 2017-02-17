@@ -1,3 +1,5 @@
+// Ryan Wiener, Porter Haet, 2/16/17
+
 #include <vector>
 #include <dirent.h>
 #include <cctype>

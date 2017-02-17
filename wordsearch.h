@@ -1,3 +1,5 @@
+// Ryan Wiener, Porter Haet, 2/16/17
+
 #include "word.h"
 #include "list.h"
 #include "itemtype.h"
