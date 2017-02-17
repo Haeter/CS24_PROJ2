@@ -1,3 +1,5 @@
+// Ryan Wiener, Porter Haet, 2/16/17
+
 #include "word.h"
 
 word::word()
@@ -20,7 +22,7 @@ list<file>* word::getFiles() {
 }
 
 bool word::operator==(const word& other) {
-	return data == other.data;
+	return data == other.data; // only compare the string and not the list of files
 }
 
 int word::getHashCode() {

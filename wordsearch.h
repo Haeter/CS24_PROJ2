@@ -6,5 +6,5 @@
 #include <string>
 #include <cstring>
 using namespace std;
-int main(int argc, char **argv);
+int main(int argc, char **argv)
 void printResults(word current);

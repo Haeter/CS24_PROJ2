@@ -45,39 +45,28 @@ int main(int argc, char **argv)
     }
 
 	ifstream fin;
-	list<word> words;
+	list<word> words; // list of words
 	string next;
 	string slash = "/";
-	int wordsRecorded = 0;
 
 	for (int i = 0; i < filenames.size(); i++)
 	{
 		string absoluteFile =(string(argv[1])+slash+filenames[i]);
-		cout << absoluteFile << endl;
 		fin.open(absoluteFile.c_str());
 		if (fin.fail())
 		{
 			cerr << "Couldn't open file " << filenames[i] << endl;
 			exit(1);
 		}
-		//cout << filenames[i] << endl;
 		while (fin >> next)
 		{
-			/*word* currentWord = NULL;
-			for (words.startIterating(); words.hasNext(); words.iterate()) {
-				currentWord = words.getCurrentPointer();
-				if (currentWord->getWord() == next) {
-					break;
-				}
-			}*/
-
-			///////////////////////////
-			//unordered_map<string, int>::iterator it = seen.find(next);
 			for (int i = 0; i < next.length(); i++)
 			{
-				if(ispunct(next[i]))
+				// gets rid of punctuation and makes lowercase
+				if(ispunct(next[i]) || next[i] == '"')
 				{
 					next.erase(i, 1);
+					i--;
 				}
 				else
 				{
@@ -86,93 +75,28 @@ int main(int argc, char **argv)
 			}
 			cout << next << endl;
 			word newWord(next);
-			word* currentWord = words.getDataPointer(newWord);
-			if (currentWord)
+			word* currentWord = words.getDataPointer(newWord); // gets pointer to word in list or returns NULL if not found
+			if (currentWord) // checks if word was found
 			{
 				list<file>* filesWithWord = currentWord->getFiles();
-				//bool matched = false;
 				file newFile(filenames[i], 1);
-				file* fileWithWord = filesWithWord->getDataPointer(newFile);
-				if (fileWithWord)
+				file* fileWithWord = filesWithWord->getDataPointer(newFile); // gets pointer to word in list or returns NULL if not found
+				if (fileWithWord) // checks if file was found
 				{
-					fileWithWord->setCount(fileWithWord->getCount() + 1);
+					fileWithWord->setCount(fileWithWord->getCount() + 1); // increments count by 1 in file
 				}
 				else
 				{
-					currentWord->getFiles()->pushfront(newFile);
-				}
-				/*
-				for (filesWithWord->startIterating(); filesWithWord->hasNext(); filesWithWord->iterate())
-				{
-					fileWithWord = filesWithWord->getCurrentPointer();
-					if (fileWithWord->getFilename() == filenames[i])
-					{
-						matched = true;
-						fileWithWord->setCount(fileWithWord->getCount() + 1);
-						break;
-					}
-				}
-				if (!matched)
-				{
-					file newFile(filenames[i], 1);
-					currentWord->getFiles()->pushfront(newFile);
-				}
-				*/
-			}
-			else
-			{
-				file newFile(filenames[i], 1);
-				newWord.getFiles()->pushfront(newFile);
-				words.pushfront(newWord);
-				wordsRecorded++;
-			}
-
-			/*
-			if (it == seen.end()) {
-				currentWord = NULL;
-			}
-			else {
-				int i = 0, max = wordsRecorded - it->second - 1;
-				for (words.startIterating(); i < max; words.iterate()) {
-					i++;
-				}
-				currentWord = words.getCurrentPointer();
-			}
-			*/
-			///////////////////////////
-			/*			
-			if (currentWord && currentWord->getWord() == next)
-			{
-				list<file>* filesWithWord = currentWord->getFiles();
-				bool matched = false;
-				file* fileWithWord;
-				for (filesWithWord->startIterating(); filesWithWord->hasNext(); filesWithWord->iterate())
-				{
-					fileWithWord = filesWithWord->getCurrentPointer();
-					if (fileWithWord->getFilename() == filenames[i])
-					{
-						matched = true;
-						fileWithWord->setCount(fileWithWord->getCount() + 1);
-						break;
-					}
-				}
-				if (!matched)
-				{
-					file newFile(filenames[i], 1);
-					currentWord->getFiles()->pushfront(newFile);
+					currentWord->getFiles()->pushfront(newFile); // push new file object
 				}
 			}
 			else
 			{
+				// create new word object and append to list of words
 				file newFile(filenames[i], 1);
-				word newWord(next);
 				newWord.getFiles()->pushfront(newFile);
-
 				words.pushfront(newWord);
-				seen[next] = wordsRecorded;
-				wordsRecorded++;
 			}
-			*/
 		}
 		fin.close();
 	}
@@ -181,19 +105,23 @@ int main(int argc, char **argv)
 	cin >> input;
 	while (input != "exit")
 	{
-		word search(input);
-		word* currentWord = words.getDataPointer(search);
-		if (currentWord)
+		for (int i = 0; i < input.length(); i++)
 		{
-			/*
-			list<file>* filesWithWord = currentWord->getFiles();
-		for (words.startIterating(); words.hasNext(); words.iterate()) {
-			search = words.getCurrent();
-			if (search.getWord() == input) {
-				break;
+			// gets rid of punctuation and makes lowercase
+			if(ispunct(input[i]) || next[i] == '"')
+			{
+				input.erase(i, 1);
+				i--;
+			}
+			else
+			{
+				input[i] = tolower(input[i]);
 			}
 		}
-		*/
+		word search(input);
+		word* currentWord = words.getDataPointer(search);
+		if (currentWord) // checks to see if word was found
+		{
 			printResults(*currentWord);
 		}
 		else
@@ -208,9 +136,10 @@ int main(int argc, char **argv)
 
 void printResults(word current)
 {
+	cout << "Filename Count" << endl;
 	list<file> files = *(current.getFiles());
-	for (int i = 0; i < files.length(); i++) {
+	for (int i = files.length() - 1; i >= 0; i--) {
 		file f = files.get(i);
-		cout << f.getFilename() << " " << f.getCount() << endl;
+		cout << f.getFilename() << " " << f.getCount() << endl; // print out filename and count
 	}
 }
