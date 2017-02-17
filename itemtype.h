@@ -16,6 +16,7 @@ class file{
 		int getCount();
 		void setCount(int newCount);
 
+		// These functions are required for use in the hashmap
 		bool operator==(const file&f);
 		int getHashCode();
 };

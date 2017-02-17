@@ -2,6 +2,7 @@
 
 file::file(string filename, int initCount)
 {
+	// initializes the file 
 	count = initCount;
 	this->filename = filename;
 }
@@ -21,10 +22,13 @@ void file::setCount(int newCount)
 	count = newCount;
 }
 
+// files are equal if their filenames are equal
 bool file::operator==(const file& f) {
 	return filename == f.filename;
 }
 
+// hashCode is used for the hash map in the linked list
+// The hash result is based on the first 4 characters of the file name
 int file::getHashCode() {
 	int code = 0;
 	// only hash the first four characters
