@@ -2,6 +2,7 @@
 
 #include "word.h"
 #include "list.h"
+#include "BST.h"
 #include "itemtype.h"
 #include <iostream>
 #include <fstream>

@@ -13,10 +13,23 @@ class word
 	private:
 		string data;
 		list<file> files;
+		struct node {
+			word* left, *right;
+			node(word*left = NULL, word*right = NULL) {
+				this->left = left;
+				this->right = right;
+			}
+		};
+		node n;
 	public:
 		word(); // default constructor
 		word(string dat); // parameter-driven constructor
+		word* getLeft();
+		word* getRight();
+		void insert(word w);
 		string getWord();
+		word get(string word);
+
 		list<file>* getFiles(); // returns a pointer to the list of files
 
 		bool operator==(const word& other); // overload == operator for comparing word objects
