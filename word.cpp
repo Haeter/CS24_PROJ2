@@ -12,9 +12,72 @@ word::word(string dat)
 	data = dat;
 }
 
+word* word::getLeft()
+{
+	return n.left;
+}
+
+word* word::getRight()
+{
+	return n.right;
+}
+
+void word::insert(word w)
+{
+	if (w.data > this->data)
+	{
+		if (n.right)
+		{
+			n.right->insert(w);
+		}
+		else
+		{
+			n.right = &w;
+		}
+	}
+	else if (w.data < this ->data)
+	{
+		if (n.left)
+		{
+			n.left->insert(w);
+		}
+		else
+		{
+			n.left = &w;
+		}
+	}
+}
+
 string word::getWord()
 {
 	return data;
+}
+
+word* word::get(string dat)
+{
+	if (dat == this->data)
+	{
+		return this;
+	}
+	if (dat > this->data)
+	{
+		if (n.right)
+		{
+			return n.right->get(dat);
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	if (n.left)
+	{
+		return n.left->get(dat);
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 list<file>* word::getFiles() {

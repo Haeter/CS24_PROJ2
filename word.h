@@ -28,7 +28,7 @@ class word
 		word* getRight();
 		void insert(word w);
 		string getWord();
-		word get(string word);
+		word* get(string dat);
 
 		list<file>* getFiles(); // returns a pointer to the list of files
 
