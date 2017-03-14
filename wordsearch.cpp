@@ -62,26 +62,28 @@ int main(int argc, char **argv)
 		}
 		while (fin >> next)
 		{
-			if (!root) {
-				root = new word(next);
-			}
-			for (int i = 0; i < next.length(); i++)
+			for (int j = 0; j < next.length(); j++)
 			{
 				// gets rid of punctuation and makes lowercase
-				if(ispunct(next[i]) || next[i] == '"')
+				if(ispunct(next[j]) || next[j] == '"')
 				{
-					next.erase(i, 1);
-					i--;
+					next.erase(j, 1);
+					j--;
 				}
 				else
 				{
-					next[i] = tolower(next[i]);
+					next[j] = tolower(next[j]);
 				}
 			}
-			cout << next << endl;
+			if (!root) {
+				root = new word(next);
+			}
+
+			//cout << next << endl;
 			word* currentWord = root->get(next);
 			if (currentWord) // checks if word was found
 			{
+				cout << "word found" << endl;
 				list<file>* filesWithWord = currentWord->getFiles();
 				file newFile(filenames[i], 1);
 				file* fileWithWord = filesWithWord->getDataPointer(newFile); // gets pointer to word in list or returns NULL if not found
@@ -97,6 +99,7 @@ int main(int argc, char **argv)
 			}
 			else
 			{
+				cout << "word not found" << endl;
 				word newWord(next);
 				// create new word object and append to list of words
 				file newFile(filenames[i], 1);
