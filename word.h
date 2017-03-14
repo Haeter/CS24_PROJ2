@@ -27,7 +27,7 @@ class word
 		word(string dat); // parameter-driven constructor
 		word* getLeft();
 		word* getRight();
-		void insert(word w);
+		void insert(word* w);
 		string getWord();
 		word* get(string dat);
 

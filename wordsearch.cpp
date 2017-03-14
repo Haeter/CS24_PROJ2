@@ -60,6 +60,7 @@ int main(int argc, char **argv)
 			cerr << "Couldn't open file " << filenames[i] << endl;
 			exit(1);
 		}
+		cout << filenames[i] << endl;
 		while (fin >> next)
 		{
 			for (int j = 0; j < next.length(); j++)
@@ -83,7 +84,7 @@ int main(int argc, char **argv)
 			word* currentWord = root->get(next);
 			if (currentWord) // checks if word was found
 			{
-				cout << "word found " << next << endl;
+//				cout << next << " found" << endl;
 				list<file>* filesWithWord = currentWord->getFiles();
 				file newFile(filenames[i], 1);
 				file* fileWithWord = filesWithWord->getDataPointer(newFile); // gets pointer to word in list or returns NULL if not found
@@ -96,22 +97,24 @@ int main(int argc, char **argv)
 					currentWord->getFiles()->pushfront(newFile); // push new file object
 				}
 				currentWord->incrementTotalCount();
-				root->print();
 			}
 			else
 			{
-				//cout << "word not found " << next << endl;
-				word newWord(next);
+				//cout << next << " not found" << endl;
+				word* newWord = new word(next);
 				// create new word object and append to list of words
 				file newFile(filenames[i], 1);
-				newWord.getFiles()->pushfront(newFile);
+				newWord->getFiles()->pushfront(newFile);
 				root->insert(newWord);
-				newWord.incrementTotalCount();
+				newWord->incrementTotalCount();
 			}
+//			cout << "printing ---------------" << endl;
+//			root->print();
+//			cout << "---------" << endl;
+
 		}
 		fin.close();
 	}
-	root->print();
 	string input;
 	cout << "Enter word: ";
 	cin >> input;

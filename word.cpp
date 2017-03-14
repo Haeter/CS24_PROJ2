@@ -24,28 +24,31 @@ word* word::getRight()
 	return n.right;
 }
 
-void word::insert(word w)
+void word::insert(word* w)
 {
-	if (w.data > this->data)
+//	cout << "inserting " << w->getWord() << endl;
+	if (w->data > this->data)
 	{
+//		cout << "is greater" << endl;
 		if (n.right)
 		{
 			n.right->insert(w);
 		}
 		else
 		{
-			n.right = &w;
+			n.right = w;
 		}
 	}
-	else if (w.data < this->data)
+	else
 	{
+//		cout << "is less" << endl;
 		if (n.left)
 		{
 			n.left->insert(w);
 		}
 		else
 		{
-			n.left = &w;
+			n.left = w;
 		}
 	}
 }
