@@ -47,7 +47,7 @@ int main(int argc, char **argv)
     }
 
 	ifstream fin;
-	list<word> words; // list of words
+	word* root = NULL; // root of word tree
 	string next;
 	string slash = "/";
 
@@ -62,6 +62,9 @@ int main(int argc, char **argv)
 		}
 		while (fin >> next)
 		{
+			if (!root) {
+				root = new word(next);
+			}
 			for (int i = 0; i < next.length(); i++)
 			{
 				// gets rid of punctuation and makes lowercase
@@ -76,8 +79,7 @@ int main(int argc, char **argv)
 				}
 			}
 			cout << next << endl;
-			word newWord(next);
-			word* currentWord = words.getDataPointer(newWord); // gets pointer to word in list or returns NULL if not found
+			word* currentWord = root->get(next);
 			if (currentWord) // checks if word was found
 			{
 				list<file>* filesWithWord = currentWord->getFiles();
@@ -94,10 +96,11 @@ int main(int argc, char **argv)
 			}
 			else
 			{
+				word newWord(next);
 				// create new word object and append to list of words
 				file newFile(filenames[i], 1);
 				newWord.getFiles()->pushfront(newFile);
-				words.pushfront(newWord);
+				root->insert(newWord);
 			}
 		}
 		fin.close();
