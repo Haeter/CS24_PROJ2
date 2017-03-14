@@ -15,7 +15,7 @@ class word
 		list<file> files;
 		struct node {
 			word* left, *right;
-			node(word*left = NULL, word*right = NULL) {
+			node(word* left = 0, word* right = 0) {
 				this->left = left;
 				this->right = right;
 			}
@@ -39,6 +39,7 @@ class word
 
 		int getFileTotal();
 		double getWordAverage();
+		void print();
 };
 
 #endif // word_h

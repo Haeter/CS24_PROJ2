@@ -37,7 +37,7 @@ void word::insert(word w)
 			n.right = &w;
 		}
 	}
-	else if (w.data < this ->data)
+	else if (w.data < this->data)
 	{
 		if (n.left)
 		{
@@ -112,4 +112,17 @@ int word::getHashCode() {
 		code += twentysix * (data[i] % 26);
 	}
 	return code;
+}
+
+void word::print()
+{
+	if (n.left)
+	{
+		n.left->print();
+	}
+	cout << this->data << endl;
+	if (n.right)
+	{
+		n.right->print();
+	}
 }
