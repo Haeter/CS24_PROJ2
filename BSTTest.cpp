@@ -1,7 +1,7 @@
 #include <iostream>
 #include "BST.h"
 using namespace std;
-int main()
+int main2()
 {
 	BST<int> tester;
 	tester.insert(1);

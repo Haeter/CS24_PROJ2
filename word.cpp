@@ -4,11 +4,13 @@
 
 word::word()
 {
+	totalCount = 0;
 	data = "";
 }
 
 word::word(string dat)
 {
+	totalCount = 0;
 	data = dat;
 }
 
@@ -82,6 +84,18 @@ word* word::get(string dat)
 
 list<file>* word::getFiles() {
 	return &files; 
+}
+
+int word::getFileTotal() {
+	return files.length(); 
+}
+
+double word::getWordAverage() {
+	return (double) getFileTotal() / totalCount;
+}
+
+void word::incrementTotalCount() {
+	totalCount++;
 }
 
 bool word::operator==(const word& other) {

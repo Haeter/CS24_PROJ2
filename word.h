@@ -21,6 +21,7 @@ class word
 			}
 		};
 		node n;
+		int totalCount;
 	public:
 		word(); // default constructor
 		word(string dat); // parameter-driven constructor
@@ -31,9 +32,13 @@ class word
 		word* get(string dat);
 
 		list<file>* getFiles(); // returns a pointer to the list of files
+		void incrementTotalCount();
 
 		bool operator==(const word& other); // overload == operator for comparing word objects
 		int getHashCode(); // return hash code for hashmap
+
+		int getFileTotal();
+		double getWordAverage();
 };
 
 #endif // word_h

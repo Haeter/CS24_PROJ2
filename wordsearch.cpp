@@ -93,6 +93,7 @@ int main(int argc, char **argv)
 				{
 					currentWord->getFiles()->pushfront(newFile); // push new file object
 				}
+				currentWord->incrementTotalCount();
 			}
 			else
 			{
@@ -101,6 +102,7 @@ int main(int argc, char **argv)
 				file newFile(filenames[i], 1);
 				newWord.getFiles()->pushfront(newFile);
 				root->insert(newWord);
+				newWord.incrementTotalCount();
 			}
 		}
 		fin.close();
@@ -123,8 +125,7 @@ int main(int argc, char **argv)
 				input[i] = tolower(input[i]);
 			}
 		}
-		word search(input);
-		word* currentWord = words.getDataPointer(search);
+		word* currentWord = root->get(input);
 		if (currentWord) // checks to see if word was found
 		{
 			printResults(*currentWord);
