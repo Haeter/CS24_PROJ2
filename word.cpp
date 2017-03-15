@@ -89,12 +89,17 @@ list<file>* word::getFiles() {
 	return &files; 
 }
 
+int word::getWordTotal()
+{
+	return totalCount;
+}
+
 int word::getFileTotal() {
 	return files.length(); 
 }
 
 double word::getWordAverage() {
-	return (double) getFileTotal() / totalCount;
+	return static_cast<double>(totalCount) / files.length();
 }
 
 void word::incrementTotalCount() {

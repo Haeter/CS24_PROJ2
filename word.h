@@ -38,6 +38,7 @@ class word
 		int getHashCode(); // return hash code for hashmap
 
 		int getFileTotal();
+		int getWordTotal();
 		double getWordAverage();
 		void print();
 };

@@ -156,4 +156,7 @@ void printResults(word current)
 		file f = files.get(i);
 		cout << f.getFilename() << " " << f.getCount() << endl; // print out filename and count
 	}
+	cout << "Word Total " << current.getWordTotal() << endl;
+	cout << "File Total " << current.getFileTotal() << endl;
+	cout << "Average " << current.getWordAverage() << endl;
 }
