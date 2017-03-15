@@ -66,7 +66,8 @@ int main(int argc, char **argv)
 			for (int j = 0; j < next.length(); j++)
 			{
 				// gets rid of punctuation and makes lowercase
-				if(ispunct(next[j]) || next[j] == '"')
+				char ch = next[j];
+				if(ispunct(ch) || ch == '"' || isspace(ch) || isdigit(ch))
 				{
 					next.erase(j, 1);
 					j--;
@@ -76,6 +77,7 @@ int main(int argc, char **argv)
 					next[j] = tolower(next[j]);
 				}
 			}
+			if (next == "") { continue; }
 			if (!root) {
 				root = new word(next);
 			}
