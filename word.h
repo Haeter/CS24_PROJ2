@@ -40,7 +40,7 @@ class word
 		int getFileTotal();
 		int getWordTotal();
 		double getWordAverage();
-		void print();
+		void print(int &numWords);
 };
 
 #endif // word_h

@@ -115,35 +115,70 @@ int main(int argc, char **argv)
 		}
 		fin.close();
 	}
-	string input;
-	cout << "Enter word: ";
-	cin >> input;
-	while (input != "exit")
+	int mode = 0;
+	cout << "Enter mode (1 for word search, 2 for word sort, or 0 to quit): ";
+	cin >> mode;
+	while (mode < 0 || mode > 2)
 	{
-		for (int i = 0; i < input.length(); i++)
+		cout << "Invalid mode entry" << endl;
+		cout << "Enter mode (1 for word search, 2 for word sort, or 0 to quit): ";
+		cin >> mode;
+	}
+	while (mode == 1 || mode == 2)
+	{
+		if (mode == 1)
 		{
-			// gets rid of punctuation and makes lowercase
-			if(ispunct(input[i]) || next[i] == '"')
+			string input;
+			cout << "Enter word (or exit to quit): ";
+			cin >> input;
+			if (input != "exit")
 			{
-				input.erase(i, 1);
-				i--;
+				for (int i = 0; i < input.length(); i++)
+				{
+					// gets rid of punctuation and makes lowercase
+					if(ispunct(input[i]) || next[i] == '"')
+					{
+						input.erase(i, 1);
+						i--;
+					}
+					else
+					{
+						input[i] = tolower(input[i]);
+					}
+				}
+				word* currentWord = root->get(input);
+				if (currentWord) // checks to see if word was found
+				{
+					printResults(*currentWord);
+				}
+				else
+				{
+					cout << "No results found.\n";
+				}
+				/*
+				cout << "Enter word: ";
+				cin >> input;
+				*/
 			}
-			else
-			{
-				input[i] = tolower(input[i]);
-			}
-		}
-		word* currentWord = root->get(input);
-		if (currentWord) // checks to see if word was found
-		{
-			printResults(*currentWord);
 		}
 		else
 		{
-			cout << "No results found.\n";
+			int numWords;
+			cout << "Enter how many words to print (or a negative number to quit): ";
+			cin >> numWords;
+			if (numWords >= 0)
+			{
+				root->print(numWords);
+			}
 		}
-		cout << "Enter word: ";
-		cin >> input;
+		cout << "Enter mode (1 for word search, 2 for word sort, or 0 to quit): ";
+		cin >> mode;
+		while (mode < 0 || mode > 2)
+		{
+			cout << "Invalid mode entry" << endl;
+			cout << "Enter mode (1 for word search, 2 for word sort, or 0 to quit): ";
+			cin >> mode;
+		}
 	}
 	return 0;
 }

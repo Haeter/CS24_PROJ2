@@ -122,15 +122,19 @@ int word::getHashCode() {
 	return code;
 }
 
-void word::print()
+void word::print(int &numWords)
 {
 	if (n.left)
 	{
-		n.left->print();
+		n.left->print(numWords);
 	}
-	cout << this->data << endl;
-	if (n.right)
+	if (numWords > 0)
 	{
-		n.right->print();
+		cout << this->data << endl;
+		numWords--;
+		if (n.right)
+		{
+			n.right->print(numWords);
+		}
 	}
 }
